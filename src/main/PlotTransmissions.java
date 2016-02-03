@@ -9,10 +9,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -62,6 +64,7 @@ public class PlotTransmissions extends JFrame {
 		gbc.gridx = 4;
 		this.add(new JButton(new BoutonsPlot("Miller", TypeCourbe.Miller)), gbc);
 		pack();
+		this.setLocation(420, 420);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -75,10 +78,11 @@ public class PlotTransmissions extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			switch(this.type) {
-				case NRZ :
-					
-					break;
+			try {
+				ArrayList<Couple> courbe = Trames.courbe(signal.getText(), type);
+				JOptionPane.showMessageDialog(null, "Tout va bien, circulez.\n" + courbe, "Cool bro'", JOptionPane.INFORMATION_MESSAGE);
+			} catch(Exception ex) {
+				JOptionPane.showMessageDialog(null, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
