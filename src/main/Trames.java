@@ -18,8 +18,8 @@ public class Trames {
 				return manchester(trame); 
 			case ManDiff :
 				return mandiff(trame); 
-			//case Miller :
-				//return miller(trame); 
+			case Miller :
+				return miller(trame); 
 			default :
 				throw new Exception("Erreur : Courbe non prise en charge.");
 		}
@@ -82,6 +82,27 @@ public class Trames {
 				else
 					throw new Exception("Erreur : Caractère dans la trame invalide");
 			}
+		}
+		
+		return retour;
+	}
+	
+	private static ArrayList<Couple> miller(String trame) throws Exception {
+		ArrayList<Couple> retour = new ArrayList<>();
+		for(int i = 0; i < trame.length(); i++) {
+			char last = (i == 0 ? 1 : trame.charAt(i-1));
+			int lastVal = (i == 0 ? 1 : retour.get(i-1).milieu);
+			if(trame.charAt(i)== '1') {
+				retour.add(new Couple(lastVal, (lastVal + 1)%2));
+			} else if (trame.charAt(i) == '0') {
+				if(last == '0')
+					retour.add(new Couple((lastVal + 1)%2, (lastVal + 1)%2));
+				else
+					retour.add(new Couple(lastVal, lastVal));
+			}
+			else
+				throw new Exception("Erreur : Caractère dans la trame invalide");
+				
 		}
 		
 		return retour;
