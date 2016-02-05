@@ -79,8 +79,7 @@ public class PlotTransmissions extends JFrame {
 		
 		public void actionPerformed(ActionEvent e) {
 			try {
-				ArrayList<Couple> courbe = Trames.courbe(signal.getText(), type);
-				JOptionPane.showMessageDialog(null, "Tout va bien, circulez.\n" + courbe, "Cool bro'", JOptionPane.INFORMATION_MESSAGE);
+				new PlotSignal(this.type, signal.getText());
 			} catch(Exception ex) {
 				JOptionPane.showMessageDialog(null, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
