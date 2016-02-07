@@ -18,9 +18,10 @@ public class Signal extends JPanel {
 	
 	public static final int largeurMin = 80;
 	public static final int largeurMax = 1000;
-	public static final int hauteurEntete = 150;
-	public static final int ecart = 10;
+	public static final int hauteurEntete = 100;
+	public static final int ecart = 30;
 	public static final int hauteurGraphe = 150;
+	public static final int tailleEntete = 30;
 	
 	
 	private final ArrayList<Couple> trame;
@@ -60,15 +61,24 @@ public class Signal extends JPanel {
 		// Définit la largeur occupée par une valeur du signal
 		int largeur = getLargeur();
 		
-		// Définit la police des chiffres de l'entête
-		g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		
 		for(int i = 0; i < this.signal.length(); i++) {
 			// Le tracé de l'entête
+			Font font = new Font("TimesRoman", Font.PLAIN, tailleEntete);
+			g2.setFont(font);
 			int x = (largeur * i) + (largeur / 2) - (g2.getFontMetrics().stringWidth(Character.toString(signal.charAt(i)))/2);
-			int y = (hauteurEntete / 2) - (g2.getFontMetrics().getHeight()/2);
+			int y = (hauteurEntete / 2) + (tailleEntete / 2);
 			g2.setColor(Color.black);
 			g2.drawString(Character.toString(signal.charAt(i)), x, y);
+			
+			// Tracé des pointillés
+			float[] dash = {10.0f, 7.0f};
+			g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+			g2.drawLine(i*largeur, 0, i*largeur, getYGraphe() + Signal.hauteurGraphe);
+			
+			g2.drawLine(i*largeur, Signal.hauteurEntete, (i+1)*largeur, Signal.hauteurEntete);
+			g2.drawLine(i*largeur, getYGraphe(), (i+1)*largeur, getYGraphe());
+			g2.drawLine(i*largeur, getYGraphe() + (Signal.hauteurGraphe / 2), (i+1)*largeur, getYGraphe() + (Signal.hauteurGraphe / 2));
+			g2.drawLine(i*largeur, getYGraphe() + Signal.hauteurGraphe, (i+1)*largeur, getYGraphe() + Signal.hauteurGraphe);
 			
 			// Le tracé de la courbe
 			g2.setStroke(new BasicStroke(3));
