@@ -2,7 +2,12 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
@@ -18,8 +23,18 @@ public class PlotSignal extends JFrame {
 		
 		Signal signal = new Signal(Trames.courbe(trame, type), trame, this);
 		JScrollPane scroll = new JScrollPane(signal, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
 		this.setMaximumSize(new Dimension(Signal.largeurMax, Signal.hauteurEntete + Signal.hauteurGraphe));
+		
+		JLabel entete = new JLabel("<html><center>Trame de <b>" + type.getNom() + "</b></center></html>");
+		entete.setFont(new Font(entete.getFont().getName(), Font.PLAIN, 35));
+		JPanel entetePanel = new JPanel();
+		entetePanel.setLayout(new BoxLayout(entetePanel, BoxLayout.LINE_AXIS));
+		entetePanel.add(Box.createHorizontalGlue());
+		entetePanel.add(entete);
+		// entetePanel.add(Box.createHorizontalGlue());
+		
+		this.add(entetePanel, BorderLayout.NORTH);
+		
 		this.add(scroll, BorderLayout.CENTER);
 		this.pack();
 		this.setSize(1000,600);
