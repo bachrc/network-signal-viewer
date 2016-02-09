@@ -47,12 +47,16 @@ public class Signal extends JPanel {
 	public int getYGraphe() {
 		return Signal.hauteurEntete + Signal.ecart;
 	}
+
+	public int getTotalY() {
+		return Signal.hauteurEntete + Signal.ecart + Signal.hauteurGraphe;
+	}
 	
 	@Override
 	public Dimension getPreferredSize() {
 		int largeur = getLargeur() * signal.length();
 		
-		return new Dimension(largeur, Signal.hauteurEntete + Signal.ecart + Signal.hauteurGraphe);
+		return new Dimension(largeur, getTotalY());
 	}
 	
 	public void paintComponent(Graphics g) {
